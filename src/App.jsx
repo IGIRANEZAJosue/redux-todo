@@ -1,14 +1,17 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import Todo from "./components/Todo";
+import { useDispatch, useSelector } from "react-redux";
+import { addTodo, deleteTodo } from "./features/todo";
 
 export default function App() {
    const [input, setInput] = useState("");
-   const [todos, setTodos] = useState([]);
+   // const [todos, setTodos] = useState([]);
+   const todos = useSelector((state) => state.todos.list);
+   console.log(todos);
 
-   // Get data from the input
-   const handleInput = (e) => {
-      setInput(e.target.value);
-   };
+   /*
+
 
    // Add todo to the list
    const addTodo = (e) => {
@@ -34,16 +37,32 @@ export default function App() {
       );
    };
 
+   */
+
+   const handleAddtodo = (e) => {
+      e.preventDefault();
+      dispatch(
+         addTodo({ title: input, id: Math.random() * 100, isCompleted: false })
+      );
+      setInput("");
+   };
+
+   const dispatch = useDispatch();
+   const todoList = useSelector((state) => state.todos.list);
+
    return (
       <div className="flex flex-col justify-center items-center font-poppins">
          <h1 className="font-bold text-[6rem] text-gray-300">todos</h1>
 
-         <form onSubmit={addTodo} className="flex flex-col items-center w-full">
+         <form
+            onSubmit={(e) => handleAddtodo(e)}
+            className="flex flex-col items-center w-full"
+         >
             <div className="flex items-center gap-4 border-2 border-gray-300 shadow-lg p-2 rounded-full w-1/2 outline-[#636cff]">
                <input
                   type="text"
                   value={input}
-                  onChange={handleInput}
+                  onChange={(e) => setInput(e.target.value)}
                   placeholder="Add todo..."
                   className="p-2 w-full outline-none"
                />
@@ -60,8 +79,8 @@ export default function App() {
                <Todo
                   key={todo.id}
                   todo={todo}
-                  delete={() => deleteTodo(todo.id)}
-                  completeTodo={() => completeTodo(todo.id)}
+                  delete={() => dispatch(deleteTodo(todo.id))}
+                  // completeTodo={() => completeTodo(todo.id)}
                />
             ))}
          </div>
