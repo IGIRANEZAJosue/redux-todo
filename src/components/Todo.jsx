@@ -1,6 +1,3 @@
-import { useDispatch } from "react-redux";
-import { addTodo } from "../features/todo";
-
 /* eslint-disable react/prop-types */
 const Todo = (props) => {
    return (
@@ -9,6 +6,7 @@ const Todo = (props) => {
             type="checkbox"
             onClick={props.completeTodo}
             checked={props.todo.isCompleted}
+            className="size-5"
          />
          <p
             className={`font-karla text-2xl ${

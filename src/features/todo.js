@@ -10,7 +10,10 @@ const todoSlice = createSlice({
          state.list.push(action.payload);
       },
 
-      
+      completeTodo: (state, action) => {
+         const todo = state.list.find((todo) => todo.id === action.payload);
+         if (todo) todo.isCompleted = !todo.isCompleted;
+      },
 
       deleteTodo: (state, action) => {
          state.list = state.list.filter((todo) => todo.id !== action.payload);
