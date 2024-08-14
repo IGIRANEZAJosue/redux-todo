@@ -3,13 +3,11 @@ import { addTodo } from "../features/todo";
 
 /* eslint-disable react/prop-types */
 const Todo = (props) => {
-   const dispatch = useDispatch();
-
    return (
       <div className="flex items-center gap-8 p-4 border-b border-b-gray-400 w-2/3">
          <input
             type="checkbox"
-            onClick={() => dispatch(addTodo())}
+            onClick={props.completeTodo}
             checked={props.todo.isCompleted}
          />
          <p

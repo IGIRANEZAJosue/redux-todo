@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Todo from "./components/Todo";
 import { useDispatch, useSelector } from "react-redux";
-import { addTodo, deleteTodo } from "./features/todo";
+import { addTodo, completeTodo, deleteTodo } from "./features/todo";
 
 export default function App() {
    const [input, setInput] = useState("");
@@ -80,7 +80,7 @@ export default function App() {
                   key={todo.id}
                   todo={todo}
                   delete={() => dispatch(deleteTodo(todo.id))}
-                  // completeTodo={() => completeTodo(todo.id)}
+                  completeTodo={() => dispatch(completeTodo(todo.id))}
                />
             ))}
          </div>
